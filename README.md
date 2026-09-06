@@ -37,8 +37,9 @@ The dependency direction points inward: application and domain code do not depen
 - Health endpoint
 - Unit tests for use cases
 - API tests with Supertest
-- Docker image
-- GitHub Actions CI
+- OpenAPI 3.0 specification
+- Multi-stage Docker image
+- GitHub Actions CI with typecheck, tests, build and Docker-image verification
 
 ## API
 
@@ -56,6 +57,8 @@ Example create request:
   "title": "Review architecture boundaries"
 }
 ```
+
+The API contract is documented in `docs/openapi.yaml`, including request validation, task schemas and error responses.
 
 ## Project Structure
 
@@ -82,6 +85,9 @@ src/
 tests/
 ├── create-task.test.ts
 └── api.test.ts
+
+docs/
+└── openapi.yaml
 ```
 
 ## Dependency Rule
@@ -113,11 +119,17 @@ Build:
 npm run build
 ```
 
+Run the compiled production entry point:
+
+```bash
+npm start
+```
+
 ## Docker
 
 ```bash
 docker build -t clean-architecture-backend .
-docker run -p 3000:3000 clean-architecture-backend
+docker run --rm -p 3000:3000 clean-architecture-backend
 ```
 
 ## Engineering Roadmap
@@ -129,14 +141,15 @@ docker run -p 3000:3000 clean-architecture-backend
 - [x] HTTP delivery adapter
 - [x] Request validation
 - [x] Unit and API tests
+- [x] OpenAPI specification
 - [x] Dockerfile
+- [x] Docker build verification in CI
 - [x] GitHub Actions CI
 - [ ] PostgreSQL repository adapter
 - [ ] Transaction boundary abstraction
 - [ ] Authentication and authorization
 - [ ] Structured logging and metrics
-- [ ] OpenAPI specification
 
 ## What This Project Demonstrates
 
-This repository demonstrates practical application of Clean Architecture: separation of concerns, dependency inversion, framework independence, testable use cases and replaceable infrastructure.
+This repository demonstrates practical application of Clean Architecture: separation of concerns, dependency inversion, framework independence, testable use cases, explicit API contracts and replaceable infrastructure.
